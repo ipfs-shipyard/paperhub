@@ -13,7 +13,7 @@ module.exports = function makeConfig (isDev) {
         publicPath: ''
       })
     },
-    clearBeforeBuild: '!(locale|img|favicon.ico)'
+    clearBeforeBuild: '!(img|favicon.ico)'
   })
 
   // Handle js-ipfs-api
