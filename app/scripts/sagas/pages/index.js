@@ -4,9 +4,11 @@ import {takeLatest} from 'redux-saga'
 import {pages} from '../../actions'
 
 import * as home from './home'
+import * as upload from './upload'
 
 const loaders = {
-  home
+  home,
+  upload
 }
 
 export default function * watchPages () {

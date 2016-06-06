@@ -8,7 +8,7 @@ class Home extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     leave: PropTypes.func.isRequired,
-    node: PropTypes.object.isRequired
+    feed: PropTypes.array.isRequired
   };
 
   componentWillMount () {
@@ -21,16 +21,16 @@ class Home extends Component {
 
   render () {
     return (
-      <Feed />
+      <Feed feed={this.props.feed}/>
     )
   }
 }
 
 function mapStateToProps (state) {
-  const {id} = state
+  const {feed} = state
 
   return {
-    node: id
+    feed: feed.list
   }
 }
 

@@ -25,6 +25,7 @@ class Upload extends Component {
     goBack: PropTypes.func.isRequired,
     setTitle: PropTypes.func.isRequired,
     setAuthor: PropTypes.func.isRequired,
+    submitForm: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired
   };
@@ -38,8 +39,7 @@ class Upload extends Component {
   }
 
   _handleSubmit = () => {
-    console.log('submitting', this.props.form)
-    this.props.resetForm()
+    this.props.submitForm()
   }
 
   _handleCancel = () => {

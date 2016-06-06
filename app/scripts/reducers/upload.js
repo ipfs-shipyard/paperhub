@@ -21,6 +21,8 @@ export default function errors (state = defaultState, action) {
     }
   } else if (type === actions.RESET_FORM) {
     return defaultState
+  } else if (type === actions.STORE.SUCCESS) {
+    return defaultState
   }
 
   return state

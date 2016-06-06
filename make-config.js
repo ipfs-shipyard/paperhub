@@ -1,7 +1,10 @@
-var createConfig = require('hjs-webpack')
+'use strict'
+
+const createConfig = require('hjs-webpack')
+const path = require('path')
 
 module.exports = function makeConfig (isDev) {
-  var config = createConfig({
+  const config = createConfig({
     isDev: isDev,
     in: './app/scripts/index.js',
     out: './dist',
@@ -19,8 +22,15 @@ module.exports = function makeConfig (isDev) {
   // Handle js-ipfs-api
   config.module.loaders.push({
     test: /\.js$/,
-    include: /node_modules\/(hoek|qs|wreck|boom|ipfs-api|ipfs-geoip|lodash-es)/,
+    include: /node_modules\/(hoek|qs|wreck|boom|ipfs|lodash-es|promisify-es)/,
     loader: 'babel-loader'
+  })
+
+  config.module.postLoaders = config.module.postLoaders || []
+  config.module.postLoaders.push({
+    include: /ipfs/,
+    test: /\.js$/,
+    loader: 'transform?brfs'
   })
 
   config.externals = {
@@ -29,24 +39,27 @@ module.exports = function makeConfig (isDev) {
     fs: '{}',
     tls: '{}',
     console: '{}',
-    'require-dir': '{}',
-    // Needed for enzyme
-    jsdom: 'window',
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': 'window',
-    'text-encoding': 'window'
+    mkdirp: '{}',
+    'require-dir': '{}'
   }
+
+  config.node = config.node || {}
+  config.node.Buffer = require.resolve('buffer')
 
   config.resolve = {
     alias: {
       http: 'stream-http',
       https: 'https-browserify',
-      sinon: 'sinon/pkg/sinon'
+      sinon: 'sinon/pkg/sinon',
+      'libp2p-ipfs': 'libp2p-ipfs-browser',
+      'node-forge': path.resolve(
+        path.dirname(require.resolve('libp2p-crypto')),
+        '../vendor/forge.bundle.js'
+      )
     }
   }
 
   config.module.noParse = config.module.noParse || []
-  config.module.noParse.push(/node_modules\/sinon\//)
 
   return config
 }

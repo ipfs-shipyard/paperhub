@@ -9,6 +9,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import {errors, router} from '../actions'
 
+const barStyle = {
+  position: 'fixed',
+  top: 0
+}
+
 class App extends Component {
   static propTypes = {
     // Injected by React Redux
@@ -59,6 +64,7 @@ class App extends Component {
             title='PaperHub'
             showMenuIconButton={false}
             iconElementRight={uploadButton}
+            style={barStyle}
           />
           <div className='children'>
             {children}

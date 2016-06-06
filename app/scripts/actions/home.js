@@ -1,9 +1,9 @@
 import {action, createRequestTypes} from './utils'
 
-export const ID = createRequestTypes('ID')
+export const FEED = createRequestTypes('FEED')
 
-export const id = {
-  request: () => action(ID.REQUEST),
-  success: (response) => action(ID.SUCCESS, {response}),
-  failure: (error) => action(ID.FAILURE, {error})
+export const feed = {
+  request: () => action(FEED.REQUEST),
+  success: (response) => action(FEED.SUCCESS, {response}),
+  failure: (error) => action(FEED.FAILURE, {error})
 }
