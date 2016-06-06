@@ -12,22 +12,29 @@ export default class Feed extends Component {
         <Col sm='1' md='1/2' lg='1/2' className='feed__item'>
           <Card>
             <Row>
-              <Col>
-                <span className='feed__title'>{item.title}</span>
+              <Col md='1/3'>
+                <img src='http://placehold.it/84x120' />
+              </Col>
+              <Col md='2/3'>
+                <Row>
+                  <Col>
+                    <span className='feed__title'>{item.title}</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    by <span className='feed__author'>{item.author}</span>
+                  </Col>
+                </Row>
+                <Row className='feed__buttons'>
+                  <Col>
+                    <Button type='hollow-primary'>
+                      Read
+                    </Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
-            <Row>
-              <Col>
-                by <span className='feed__author'>{item.author}</span>
-              </Col>
-            </Row>
-            <Row className='feed__buttons'>
-              <Col>
-                <Button type='hollow-primary'>
-                  Read
-                </Button>
-              </Col>
-              </Row>
           </Card>
         </Col>
       </Row>

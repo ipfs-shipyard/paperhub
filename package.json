@@ -8,7 +8,7 @@
     "elemental": "^0.5.14",
     "fbjs": "^0.8.0-alpha.3",
     "idb-plus-blob-store": "^1.1.2",
-    "ipfs": "^0.11.1",
+    "ipfs": "^0.12.0",
     "lodash-es": "^4.6.1",
     "md5": "^2.1.0",
     "multiaddr": "^2.0.2",

@@ -11,21 +11,17 @@ export function events (name, emitter) {
 
   return eventChannel((listener) => {
     handler = (channel) => {
-      console.log('event', name, channel)
       listener(channel)
     }
-    console.log('subscribing to %s', name)
     emitter.on(name, handler)
 
     return () => {
-      console.log('closing', name)
       emitter.removeListener(name, handler)
     }
   })
 }
 
 export function * handleEvent (chan) {
-  console.log('start handling events')
   try {
     while (true) {
       let channel = yield take(chan)
