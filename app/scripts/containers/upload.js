@@ -1,32 +1,17 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {Paper, TextField, RaisedButton} from 'material-ui'
+import {Form, FormField, FormInput, Button, Card, Row, Col}  from 'elemental'
 
 import {router, pages, upload} from '../actions'
-
-const paperStyle = {
-  margin: '100px auto',
-  maxWidth: '768px',
-  padding: '20px 40px 40px'
-}
-
-const buttonsStyle = {
-  marginTop: '40px'
-}
-
-const buttonStyle = {
-  marginRight: '12px'
-}
+import {Link} from 'react-router'
 
 class Upload extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     leave: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired,
     setTitle: PropTypes.func.isRequired,
     setAuthor: PropTypes.func.isRequired,
     submitForm: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired
   };
 
@@ -38,13 +23,10 @@ class Upload extends Component {
     this.props.setAuthor(event.target.value)
   }
 
-  _handleSubmit = () => {
-    this.props.submitForm()
-  }
+  _handleSubmit = (event) => {
+    event.preventDefault()
 
-  _handleCancel = () => {
-    this.props.goBack()
-    this.props.resetForm()
+    this.props.submitForm()
   }
 
   componentWillMount () {
@@ -57,34 +39,50 @@ class Upload extends Component {
 
   render () {
     return (
-      <Paper style={paperStyle} zDepth={1}>
-        <h3>Upload new Paper</h3>
-        <TextField
-          hintText='Title'
-          value={this.props.form.title}
-          onChange={this._handleTitleChange}
-        /> <br />
-        <TextField
-          hintText='Author'
-          value={this.props.form.author}
-          onChange={this._handleAuthorChange}
-        /> <br />
+      <Row>
+        <Col sm='1' md='1/2' lg='1/2' className='upload'>
+          <Card>
+            <Form onSubmit={this._handleSubmit}>
+              <h3>Upload new Paper</h3>
+              <FormField
+                label='Title'
+              >
+                <FormInput
+                  type='text'
+                  autofocus
+                  placeholder='Title of the article'
+                  onChange={this._handleTitleChange}
+                  value={this.props.form.title}
+                />
+              </FormField>
+              <FormField
+                label='Author(s)'
+              >
+                <FormInput
+                  type='text'
+                  placeholder='List of authors'
+                  value={this.props.form.author}
+                  onChange={this._handleAuthorChange}
+                />
+              </FormField>
 
-        <div style={buttonsStyle}>
-          <RaisedButton
-            primary
-            label='Submit'
-            style={buttonStyle}
-            onClick={this._handleSubmit}
-          />
-          <RaisedButton
-            primary={false}
-            label='Cancel'
-            style={buttonStyle}
-            onClick={this._handleCancel}
-          />
-        </div>
-      </Paper>
+              <div className='upload__buttons'>
+                <Button
+                  submit
+                  type='hollow-primary'
+                >
+                  Submit
+                </Button>
+                <Button
+                  type='link'
+                  component={<Link to='/home'>Cancel</Link>}
+                >
+                </Button>
+              </div>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
     )
   }
 }

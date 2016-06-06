@@ -3,16 +3,9 @@ import {connect} from 'react-redux'
 import ReduxToastr, {toastr} from 'react-redux-toastr'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import {AppBar, FlatButton} from 'material-ui'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-import {errors, router} from '../actions'
-
-const barStyle = {
-  position: 'fixed',
-  top: 0
-}
+import Nav from '../components/nav'
+import {Row, Col} from 'elemental'
+import {errors} from '../actions'
 
 class App extends Component {
   static propTypes = {
@@ -22,8 +15,7 @@ class App extends Component {
     // Injected by React Router
     children: PropTypes.node,
     params: PropTypes.object,
-    location: PropTypes.object,
-    push: PropTypes.func.isRequired
+    location: PropTypes.object
   };
 
   componentWillReceiveProps (nextProps) {
@@ -38,39 +30,23 @@ class App extends Component {
     }
   }
 
-  _goToUpload = () => {
-    this.props.push('/upload')
-  }
-
   render () {
     const {children} = this.props
 
-    const uploadButton = (
-      <FlatButton
-        label='Upload'
-        onClick={this._goToUpload}
-      />
-    )
-
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <div className='app'>
-          <ReduxToastr
-            timeOut={5000}
-            newestOnTop={false}
-            position='top-right'
-          />
-          <AppBar
-            title='PaperHub'
-            showMenuIconButton={false}
-            iconElementRight={uploadButton}
-            style={barStyle}
-          />
-          <div className='children'>
+      <div className='page-wrapper'>
+        <ReduxToastr
+          timeOut={5000}
+          newestOnTop={false}
+          position='top-right'
+        />
+        <Nav />
+        <div className='page-body'>
+          <div className='page-body-inner'>
             {children}
           </div>
         </div>
-      </MuiThemeProvider>
+      </div>
     )
   }
 }
@@ -82,6 +58,5 @@ function mapStateToProps (state) {
 }
 
 export default DragDropContext(HTML5Backend)(connect(mapStateToProps, {
-  resetErrorMessage: errors.resetErrorMessage,
-  push: router.push
+  resetErrorMessage: errors.resetErrorMessage
 })(App))

@@ -1,12 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
-import {FlatButton} from 'material-ui'
-import File from 'material-ui/svg-icons/editor/insert-drive-file'
-import {purple500} from 'material-ui/styles/colors'
-
-const cardStyle = {
-  marginBottom: '20px'
-}
+import {Card, Row, Col, Button} from 'elemental'
 
 export default class Feed extends Component {
   static propTypes = {
@@ -14,37 +7,40 @@ export default class Feed extends Component {
   };
 
   _renderCard = (item) => {
-    let desc = ''
-
-    if (item.description) {
-      desc = (
-        <CardText>
-          {item.description}
-        </CardText>
-      )
-    }
-
     return (
-      <Card expanded={false} key={item.hash} style={cardStyle}>
-        <CardHeader
-          title={item.title}
-          subtitle={item.author}
-          showExpandableButton={false}
-          avatar={<File color={purple500}/>}
-        />
-        {desc}
-        <CardActions>
-          <FlatButton label='Read' />
-        </CardActions>
-      </Card>
+      <Row key={item.hash}>
+        <Col sm='1' md='1/2' lg='1/2' className='feed__item'>
+          <Card>
+            <Row>
+              <Col>
+                <span className='feed__title'>{item.title}</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                by <span className='feed__author'>{item.author}</span>
+              </Col>
+            </Row>
+            <Row className='feed__buttons'>
+              <Col>
+                <Button type='hollow-primary'>
+                  Read
+                </Button>
+              </Col>
+              </Row>
+          </Card>
+        </Col>
+      </Row>
     )
   }
 
   render () {
     return (
-      <div className='feed'>
-        {this.props.feed.map(this._renderCard)}
-      </div>
+      <Row className='feed'>
+        <Col sm='1' md='1' lg='1'>
+          {this.props.feed.map(this._renderCard)}
+        </Col>
+      </Row>
     )
   }
 }
