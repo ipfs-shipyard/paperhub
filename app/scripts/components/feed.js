@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {Card, Row, Col, Button} from 'elemental'
+import {Link} from 'react-router'
 
 export default class Feed extends Component {
   static propTypes = {
@@ -28,9 +29,10 @@ export default class Feed extends Component {
                 </Row>
                 <Row className='feed__buttons'>
                   <Col>
-                    <Button type='hollow-primary'>
-                      Read
-                    </Button>
+                    <Button
+                      type='hollow-primary'
+                      component={<Link to={`/paper/${item.hash}`}>Read</Link>}
+                    />
                   </Col>
                 </Row>
               </Col>

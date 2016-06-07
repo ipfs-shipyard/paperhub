@@ -5,10 +5,12 @@ import {pages} from '../../actions'
 
 import * as home from './home'
 import * as upload from './upload'
+import * as paper from './paper'
 
 const loaders = {
   home,
-  upload
+  upload,
+  paper
 }
 
 export default function * watchPages () {

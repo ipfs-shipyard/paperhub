@@ -9,12 +9,14 @@ export function * submit () {
 
   try {
     const state = yield select()
-    api.store(state.upload)
+    yield api.store(state.upload)
     yield put(actions.upload.store.success())
-    yield put(router.push('/home'))
   } catch (err) {
+    console.error(err)
     yield put(actions.upload.store.failure(err.message))
   }
+
+  yield put(router.push('/home'))
 }
 
 export function * watchSubmit () {
