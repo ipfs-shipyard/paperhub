@@ -4,7 +4,6 @@ import ReduxToastr, {toastr} from 'react-redux-toastr'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import Nav from '../components/nav'
-import {Row, Col} from 'elemental'
 import {errors} from '../actions'
 
 class App extends Component {

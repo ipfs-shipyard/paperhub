@@ -21,7 +21,7 @@ class Home extends Component {
 
   render () {
     return (
-      <Feed feed={this.props.feed}/>
+      <Feed feed={this.props.feed} />
     )
   }
 }

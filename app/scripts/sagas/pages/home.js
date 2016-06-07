@@ -1,4 +1,4 @@
-import {put, call, take, fork, cancel} from 'redux-saga/effects'
+import {put, call, fork, cancel} from 'redux-saga/effects'
 
 import {home} from '../../actions'
 import {api} from '../../services'

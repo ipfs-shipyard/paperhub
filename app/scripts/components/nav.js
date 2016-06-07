@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 
 import {Link} from 'react-router'
 
-export default class Nav extends Component{
+export default class Nav extends Component {
   render () {
     return (
       <nav className='primary-nav'>

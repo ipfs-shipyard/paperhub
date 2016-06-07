@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {Form, FormField, FormInput, Button, Card, Row, Col, FileUpload}  from 'elemental'
+import {Form, FormField, FormInput, Button, Card, Row, Col, FileUpload} from 'elemental'
 
 import {router, pages, upload} from '../actions'
 import {Link} from 'react-router'
@@ -8,12 +8,12 @@ import {Link} from 'react-router'
 function readAsBuffer (file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
-      reader.onload = (event) => {
-        resolve({
-          content: new Buffer(reader.result),
-          path: file.name
-        })
-      }
+    reader.onload = (event) => {
+      resolve({
+        content: new Buffer(reader.result),
+        path: file.name
+      })
+    }
     reader.onerror = (event) => {
       reject(reader.error)
     }
@@ -131,8 +131,7 @@ class Upload extends Component {
                   <Button
                     type='link'
                     component={<Link to='/home'>Cancel</Link>}
-                  >
-                  </Button>
+                  />
                 </FormField>
               </div>
             </Form>

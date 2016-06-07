@@ -1,11 +1,10 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {Card, Row, Col, Button, Glyph}  from 'elemental'
+import {Card, Row, Col, Button, Glyph} from 'elemental'
 require('pdfjs-dist/build/pdf.combined')
 import PDF from 'react-pdf'
 
 import {pages, paper} from '../actions'
-import {Link} from 'react-router'
 
 class Paper extends Component {
   static propTypes = {
@@ -76,7 +75,7 @@ class Paper extends Component {
                 loading={(<span>Loading ...</span>)}
                 className='paper__pdf-content'
               />
-              </Col>
+            </Col>
           </Row>
         </div>
       )
@@ -115,5 +114,5 @@ export default connect(mapStateToProps, {
   nextPage: paper.paper.nextPage,
   prevPage: paper.paper.prevPage,
   select: paper.paper.select,
-  deselect: paper.paper.deselect,
+  deselect: paper.paper.deselect
 })(Paper)

@@ -15,7 +15,7 @@ export default class Feed extends Component {
             <Row>
               <Col>
                 <span className='feed__title'>{item.title}</span>
-                {item.paper ? <Glyph icon='file-pdf' type='primary'/> : ''}
+                {item.paper ? <Glyph icon='file-pdf' type='primary' /> : ''}
               </Col>
             </Row>
             <Row>
@@ -24,11 +24,11 @@ export default class Feed extends Component {
               </Col>
             </Row>
             {item.year ? (
-               <Row>
-                 <Col>
-                   published in <span className='feed__year'>{item.year}</span>
-                 </Col>
-               </Row>
+              <Row>
+                <Col>
+                  published in <span className='feed__year'>{item.year}</span>
+                </Col>
+              </Row>
              ) : ''}
             <Row className='feed__buttons'>
               <Col>

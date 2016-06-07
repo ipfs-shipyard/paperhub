@@ -1,4 +1,4 @@
-import {put, call, select, fork} from 'redux-saga/effects'
+import {put, select, fork} from 'redux-saga/effects'
 import {takeLatest} from 'redux-saga'
 
 import {upload as actions, router} from '../../actions'

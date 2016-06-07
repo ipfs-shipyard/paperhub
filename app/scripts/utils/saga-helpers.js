@@ -19,7 +19,7 @@ export function events (name, emitter) {
 export function * handleEvent (chan, handler) {
   try {
     while (true) {
-      let channel = yield take(chan)
+      yield take(chan)
       yield call(handler)
     }
   } finally {

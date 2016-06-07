@@ -1,5 +1,4 @@
 import {put, call, fork, cancel, select} from 'redux-saga/effects'
-import {takeLatest} from 'redux-saga'
 
 import {api} from '../../services'
 import {paper as actions} from '../../actions'
