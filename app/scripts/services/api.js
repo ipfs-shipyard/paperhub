@@ -141,7 +141,9 @@ export const feed = () => {
 export const store = (obj) => {
   let record = {
     author: obj.author,
-    title: obj.title
+    title: obj.title,
+    description: obj.description,
+    year: obj.year
   }
 
   return getIpfs().then((ipfs) => {
@@ -163,7 +165,12 @@ export const get = (hash) => {
     return eventlog.iterator({gte: hash, limit: 1}).collect()[0]
   })
     .then((res) => {
-      if (!res) throw new Error('No data available at this time')
+      if (!res) {
+        return {
+          key: hash
+        }
+      }
+
       const parsed = JSON.parse(res.payload.value)
       return {
         key: hash,
@@ -174,7 +181,7 @@ export const get = (hash) => {
       }
     })
     .then((res) => {
-      if (!res.result.paper) return res
+      if (!res.result || !res.result.paper) return res
       const hash = res.result.paper
 
       return getIpfs().then((ipfs) => ipfs.cat(hash))

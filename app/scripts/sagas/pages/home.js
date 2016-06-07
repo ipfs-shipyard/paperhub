@@ -1,46 +1,16 @@
-import {put, call, take, fork, cancel, cancelled} from 'redux-saga/effects'
-import {eventChannel} from 'redux-saga'
+import {put, call, take, fork, cancel} from 'redux-saga/effects'
 
 import {home} from '../../actions'
 import {api} from '../../services'
-
-let listening = false
-
-export function events (name, emitter) {
-  let handler
-
-  return eventChannel((listener) => {
-    handler = (channel) => {
-      listener(channel)
-    }
-    emitter.on(name, handler)
-
-    return () => {
-      emitter.removeListener(name, handler)
-    }
-  })
-}
-
-export function * handleEvent (chan) {
-  try {
-    while (true) {
-      let channel = yield take(chan)
-      yield call(fetchFeed)
-    }
-  } finally {
-    if (yield cancelled()) {
-      chan.close()
-    }
-  }
-}
+import {handleEvent, events} from '../../utils/saga-helpers'
 
 export function * listenData () {
   const emitter = yield call(api.events)
   const syncedChan = yield call(events, 'synced', emitter)
   const dataChan = yield call(events, 'data', emitter)
 
-  yield fork(handleEvent, syncedChan)
-  yield fork(handleEvent, dataChan)
+  yield fork(handleEvent, syncedChan, fetchFeed)
+  yield fork(handleEvent, dataChan, fetchFeed)
 
   yield call(fetchFeed)
 }

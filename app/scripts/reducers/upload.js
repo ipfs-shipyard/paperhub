@@ -4,6 +4,7 @@ const actions = upload.UPLOAD
 const defaultState = {
   title: '',
   author: '',
+  description: '',
   paper: null
 }
 
@@ -19,6 +20,16 @@ export default function errors (state = defaultState, action) {
     return {
       ...state,
       author: response
+    }
+  } else if (type === actions.SET_YEAR) {
+    return {
+      ...state,
+      year: response
+    }
+  } else if (type === actions.SET_DESCRIPTION) {
+    return {
+      ...state,
+      description: response
     }
   } else if (type === actions.SET_PAPER) {
     return {

@@ -29,6 +29,8 @@ class Upload extends Component {
     setTitle: PropTypes.func.isRequired,
     setAuthor: PropTypes.func.isRequired,
     setPaper: PropTypes.func.isRequired,
+    setDescription: PropTypes.func.isRequired,
+    setYear: PropTypes.func.isRequired,
     submitForm: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired
   };
@@ -39,6 +41,14 @@ class Upload extends Component {
 
   _handleAuthorChange = (event) => {
     this.props.setAuthor(event.target.value)
+  }
+
+  _handleDescriptionChange = (event) => {
+    this.props.setDescription(event.target.value)
+  }
+
+  _handleYearChange = (event) => {
+    this.props.setYear(parseInt(event.target.value, 10))
   }
 
   _handlePdfChange = (event, data) => {
@@ -83,6 +93,23 @@ class Upload extends Component {
                   placeholder='List of authors'
                   value={this.props.form.author}
                   onChange={this._handleAuthorChange}
+                />
+              </FormField>
+              <FormField label='Year'>
+                <FormInput
+                  type='number'
+                  placeholder='2016'
+                  value={this.props.form.year}
+                  onChange={this._handleYearChange}
+                />
+              </FormField>
+              <FormField label='Description'>
+                <FormInput
+                  type='text'
+                  multiline
+                  placeholder='Details about this paper'
+                  value={this.props.form.description}
+                  onChange={this._handleDescriptionChange}
                 />
               </FormField>
               <FormField label='Paper'>
