@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Card, Row, Col, Button, Glyph} from 'elemental'
+import {Card, Row, Col, Button, Glyph, Spinner} from 'elemental'
 import {Link} from 'react-router'
 
 export default class Feed extends Component {
@@ -45,10 +45,21 @@ export default class Feed extends Component {
   }
 
   render () {
+    let feed = (
+      <div className='loader'>
+        <Spinner size='md' type='primary' />
+        <br />
+        Loading your papers
+      </div>
+    )
+
+    if (this.props.feed && this.props.feed.length > 0) {
+      feed = this.props.feed.map(this._renderCard)
+    }
     return (
       <Row className='feed'>
         <Col sm='1' md='1' lg='1'>
-          {this.props.feed.map(this._renderCard)}
+          {feed}
         </Col>
       </Row>
     )

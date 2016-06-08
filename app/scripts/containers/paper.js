@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {Card, Row, Col, Button, Glyph} from 'elemental'
+import {Card, Row, Col, Button, Glyph, Spinner} from 'elemental'
 require('pdfjs-dist/build/pdf.combined')
 import PDF from 'react-pdf'
 
@@ -39,17 +39,11 @@ class Paper extends Component {
     this.props.prevPage(this.props.id)
   }
 
-  render () {
-    if (!this.props.paper.content) {
-      return <div>Loading {this.props.id}</div>
-    }
-
+  _renderPdf () {
     const {page, content} = this.props.paper
 
-    let pdf = ''
-
     if (content.paper && content.paper.content) {
-      pdf = (
+      return (
         <div className='paper__pdf'>
           <Row>
             <Col>
@@ -81,18 +75,39 @@ class Paper extends Component {
       )
     }
 
+    return ''
+  }
+
+  render () {
+    let dom
+    if (!this.props.paper.content) {
+      dom = (
+        <div className='loader'>
+          <Spinner size='md' type='primary' />
+          <br />
+          Loading <code>{this.props.id}</code>
+        </div>
+      )
+    } else {
+      const pdf = this._renderPdf()
+      const {content} = this.props.paper
+      dom = (
+        <Card className='paper'>
+          <h3>{content.title}</h3>
+          <h4>by <em>{content.author}</em></h4>
+          <h5>Published in {content.year}</h5>
+          <p>
+            {content.description}
+          </p>
+          {pdf}
+        </Card>
+      )
+    }
+
     return (
       <Row>
         <Col className='paper'>
-          <Card className='paper'>
-            <h3>{content.title}</h3>
-            <h4>by <em>{content.author}</em></h4>
-            <h5>Published in {content.year}</h5>
-            <p>
-              {content.description}
-            </p>
-            {pdf}
-          </Card>
+          {dom}
         </Col>
       </Row>
     )
